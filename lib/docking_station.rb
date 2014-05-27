@@ -15,7 +15,9 @@ class DockingStation
 	end
 
 	def release(bike)
+		raise "There are no bikes" if bike_count == 0
 		@bikes.delete(bike)
+		bike
 	end
 
 	def full?

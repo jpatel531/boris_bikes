@@ -22,6 +22,17 @@ end
 		expect(station.bike_count).to eq 0
 	end
 
+	it "should decrease the bike count by 1 if released" do
+		19.times {station.dock Bike.new}
+		station.dock bike
+		station.release bike
+		expect(station.bike_count). to eq 19
+	end
+
+	it "cannot release a bike if it's at 0 capacity" do
+		expect(lambda {station.release bike}).to raise_error(RuntimeError)
+	end
+
 	it "should know when it's full" do
 		expect(station).not_to be_full
 		fill_station station
