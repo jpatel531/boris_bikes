@@ -13,7 +13,7 @@ def has_an_accident
 end
 
 def rent_bike_from(station)
-	@bike = station.release(Bike.new)
+	@bike = station.release station.available_bikes.last
 end
 
 end
