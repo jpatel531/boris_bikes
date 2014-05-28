@@ -19,6 +19,7 @@ it "should be able to pick up broken bikes from station" do
 end
 
 it "should be able to drop off bikes to station" do
+	van.dock bike
 	expect(station).to receive(:dock)
 	van.return_bikes_to(station)
 end
@@ -37,7 +38,3 @@ it "has no bikes after returning bikes" do
 end
 
 end
-
-# it should be able to drop off broken bikes to garage
-# it should be able to get fixed bikes from garage
-# it should be able to drop off fixed bikes to station

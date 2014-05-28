@@ -6,16 +6,37 @@ let(:garage) {Garage.new}
 let(:bike) {Bike.new}
 let(:van) {Van.new}
 
+
+it "should receive a bike from a van" do
+	van.dock bike
+	van.return_bikes_to garage
+	expect(garage.bikes).to eq [bike]
+end
+
+it "should receive multiply bikes from a van" do
+	bike1 = bike
+	bike2 = Bike.new
+	van.dock bike1
+	van.dock bike2
+	van.return_bikes_to garage
+	expect(garage.bikes).to eq [bike1, bike2]
+end
+
 it "should fix a docked bike" do
-	garage.accept [bike]
+	garage.dock bike
+	garage.repair_bikes
 	expect(bike).not_to be_broken
 end
 
 it "should fix multiple docked bikes" do
-	bikes = [bike, Bike.new, Bike.new]
-	garage.accept bikes
-	faulty_bikes = garage.bikes.select {|bike| bike.broken? }
-	expect(faulty_bikes).to be_empty
+	broken_bike1 = Bike.new
+	broken_bike2 = Bike.new
+	broken_bike1.break!
+	van.dock broken_bike1.break!
+	van.dock broken_bike2.break!
+	van.return_bikes_to garage
+	garage.repair_bikes
+	expect(garage.broken_bikes).to be_empty
 end
 
 it "should be able to release bikes to van" do

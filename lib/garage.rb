@@ -1,13 +1,13 @@
-require 'bike_container'
+require_relative 'bike_container'
 
 class Garage
 
 include BikeContainer
 
-def accept(bikes)
+
+def repair_bikes
 	bikes.each do |bike|
-	bike.fix!
-	dock bike
+		bike.fix!
 	end
 end
 
