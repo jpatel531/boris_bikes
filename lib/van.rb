@@ -18,6 +18,8 @@ class Van
 	def error_if(receiver)
 		if receiver.is_a?(DockingStation) && !self.broken_bikes.empty?
 			raise "Cannot return broken bikes to station!" 
+		elsif receiver.is_a?(Garage) && self.broken_bikes.empty?
+			raise "Cannot return working bikes to garage!"
 		end
 	end
 

@@ -8,14 +8,14 @@ let(:van) {Van.new}
 
 
 it "should receive a bike from a van" do
-	van.dock bike
+	van.dock bike.break!
 	van.return_bikes_to garage
 	expect(garage.bikes).to eq [bike]
 end
 
 it "should receive multiply bikes from a van" do
-	bike1 = bike
-	bike2 = Bike.new
+	bike1 = bike.break!
+	bike2 = Bike.new.break!
 	van.dock bike1
 	van.dock bike2
 	van.return_bikes_to garage

@@ -6,6 +6,7 @@ describe Van do
 let(:station) {DockingStation.new}
 let(:van) {Van.new}
 let(:bike) {Bike.new}
+let(:garage) {Garage.new}
 
 it "should be able to pick up broken bikes from station" do 
 	van = Van.new
@@ -42,6 +43,11 @@ it "cannot return broken bikes to station" do
 	broken_bike = Bike.new.break!
 	van.dock broken_bike
 	expect(lambda {van.return_bikes_to station} ).to raise_error(RuntimeError)
+end
+
+it "cannot return fixed bikes to the garage" do
+	van.dock bike 
+	expect(lambda {van.return_bikes_to garage}).to raise_error(RuntimeError)
 end
 
 end
