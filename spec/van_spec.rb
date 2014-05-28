@@ -54,7 +54,7 @@ describe Van do
 
 		it "cannot return broken bikes to station" do
 			bike.break!
-			expect(lambda {van.return_bikes_to station} ).to raise_error(RuntimeError)
+			expect(lambda {van.return_bikes_to station}).to raise_error(RuntimeError)
 		end
 	end
 end

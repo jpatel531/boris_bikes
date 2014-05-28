@@ -10,12 +10,12 @@ describe Garage do
 
 		before {van.dock bike.break!}
 
-		it "a bike from a van" do
+		it "a broken bike from a van" do
 			van.return_bikes_to garage
 			expect(garage.bikes).to eq [bike]
 		end
 
-		it "multiple bikes from a van" do
+		it "multiple broken bikes from a van" do
 			van = Van.new([Bike.new.break!, Bike.new.break!])
 			van.return_bikes_to garage
 			expect(garage.bike_count).to eq 2
