@@ -18,4 +18,16 @@ it "should fix multiple docked bikes" do
 	expect(faulty_bikes).to be_empty
 end
 
+it "should be able to release bikes to van" do
+	garage.dock bike
+	expect(van).to receive(:dock)
+	garage.release_bikes_to(van)
+end
+
+it "has no bikes after releasing bikes" do
+	garage.dock bike
+	garage.release_bikes_to(van)
+	expect(garage.bikes).to be_empty
+end
+
 end
