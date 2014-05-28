@@ -8,46 +8,46 @@ let(:van) {Van.new}
 let(:bike) {Bike.new}
 let(:garage) {Garage.new}
 
-it "should be able to pick up broken bikes from station" do 
-	van = Van.new
-	broken1, broken2, broken3, working1, working2 = Bike.new, Bike.new, Bike.new, Bike.new, Bike.new
-	broken1.break!
-	broken2.break!
-	broken3.break!
-	bike_sample = [broken1, broken2, broken3, working1, working2]
+it "should be able to only pick up broken bikes from station" do 
+	broken1, working1 = Bike.new.break!, Bike.new
+	bike_sample = [broken1, working1]
 	bike_sample.each {|bike| station.dock bike }
 	van.get_broken_bikes_from(station)
-	expect(van.bikes).to eq [broken1, broken2, broken3]
+	expect(van.bikes).to eq [broken1]
 end
 
+
+context "once it has a bike" do
+	before {van.dock bike}
+
 it "should be able to drop off bikes to station" do
-	van.dock bike
 	expect(station).to receive(:dock)
 	van.return_bikes_to(station)
 end
 
 it "should be able to return bikes to garage" do 
-	van.dock bike 
-	garage = double :garage 
+	bike.break! 
 	expect(garage).to receive(:dock)
 	van.return_bikes_to(garage)
 end
 	
 it "has no bikes after returning bikes" do
-	van.dock bike
 	van.return_bikes_to(station)
 	expect(van.bikes).to be_empty
 end
 
-it "cannot return broken bikes to station" do
-	broken_bike = Bike.new.break!
-	van.dock broken_bike
-	expect(lambda {van.return_bikes_to station} ).to raise_error(RuntimeError)
-end
-
 it "cannot return fixed bikes to the garage" do
-	van.dock bike 
 	expect(lambda {van.return_bikes_to garage}).to raise_error(RuntimeError)
 end
 
+it "cannot return broken bikes to station" do
+	bike.break!
+	expect(lambda {van.return_bikes_to station} ).to raise_error(RuntimeError)
+end
+
+end
+
+it "raises an error if you try to deliver nothing" do
+	expect(lambda {van.return_bikes_to station}).to raise_error(RuntimeError)
+end
 end
