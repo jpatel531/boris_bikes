@@ -12,7 +12,15 @@ def repair_bikes
 end
 
 def release_bikes_to(van)
-	van.dock bikes
+	error_if(van)
+	self.bikes.each {|bike| van.dock bike}
 	bikes.clear
 end
+
+def error_if(van)
+	if bikes.empty?
+			raise "Nothing to deliver!"
+	end
+end
+
 end
