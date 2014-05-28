@@ -1,4 +1,5 @@
 require 'van'
+require 'bike'
 
 describe Van do
 
@@ -35,6 +36,12 @@ it "has no bikes after returning bikes" do
 	van.dock bike
 	van.return_bikes_to(station)
 	expect(van.bikes).to be_empty
+end
+
+it "cannot return broken bikes to station" do
+	broken_bike = Bike.new.break!
+	van.dock broken_bike
+	expect(lambda {van.return_bikes_to station} ).to raise_error(RuntimeError)
 end
 
 end
