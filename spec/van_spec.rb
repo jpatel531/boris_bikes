@@ -23,12 +23,19 @@ it "should be able to drop off bikes to station" do
 	van.return_bikes_to(station)
 end
 
+it "should be able to return bikes to garage" do 
+	van.dock bike 
+	garage = double :garage 
+	expect(garage).to receive(:dock)
+	van.return_bikes_to(garage)
+end
+	
 it "has no bikes after returning bikes" do
 	van.dock bike
 	van.return_bikes_to(station)
 	expect(van.bikes).to be_empty
 end
-	
+
 end
 
 # it should be able to drop off broken bikes to garage
