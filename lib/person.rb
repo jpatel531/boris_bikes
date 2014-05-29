@@ -10,6 +10,10 @@ class Person
 		!@bike.nil?
 	end
 
+	def bikes
+		[@bike]
+	end
+	
 	def has_an_accident
 		@bike.break!
 	end
