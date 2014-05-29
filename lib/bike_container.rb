@@ -24,7 +24,7 @@ module BikeContainer
 		bikes << bike
 	end
 
-	def release(bike)
+	def rent_out(bike)
 		raise EmptyException.new("This is empty bro") if bike_count == 0
 		bikes.delete(bike)
 		bike

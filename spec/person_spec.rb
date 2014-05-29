@@ -24,7 +24,7 @@ describe Person do
 		end
 
 		it "can rent a bike from the station" do
-			expect(station).to receive(:release)
+			expect(station).to receive(:rent_out)
 			person.rent_bike_from(station)
 		end
 	end

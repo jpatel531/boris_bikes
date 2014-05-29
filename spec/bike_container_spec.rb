@@ -37,18 +37,18 @@ describe BikeContainer do
 	context "releasing bikes" do
 		it "should release a bike" do
 			holder.dock bike
-			expect {holder.release bike}.to change {holder.bike_count}.from(1).to(0)
+			expect {holder.rent_out bike}.to change {holder.bike_count}.from(1).to(0)
 		end
 
 		it "should decrease the bike count by 1 if released" do
 			14.times {holder.dock Bike.new}
 			holder.dock bike
-			holder.release bike
+			holder.rent_out bike
 			expect(holder.bike_count).to eq 14
 		end
 
 		it "cannot release a bike if it's at 0 capacity" do
-			expect(lambda {holder.release bike}).to raise_exception(EmptyException)
+			expect(lambda {holder.rent_out bike}).to raise_exception(EmptyException)
 		end	
 	end
 
