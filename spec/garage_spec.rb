@@ -24,14 +24,15 @@ describe Garage do
 
 	context "should fix" do
 
+		before {garage.dock bike.break!}
+
 		it "a docked bike" do
-			garage.dock bike.break!
 			garage.repair_bikes
 			expect(bike).not_to be_broken
 		end
 
 		it "multiple docked bikes" do
-			2.times {garage.dock Bike.new.break!}
+			garage.dock Bike.new.break!
 			garage.repair_bikes
 			expect(garage.broken_bikes).to be_empty
 		end

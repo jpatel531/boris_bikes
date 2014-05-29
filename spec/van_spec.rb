@@ -44,8 +44,7 @@ describe Van do
 		end
 			
 		it "has no bikes after returning bikes" do
-			van.return_bikes_to(station)
-			expect(van.bikes).to be_empty
+			expect {van.return_bikes_to(station)}. to change {van.bikes.empty?}.from(false).to(true)
 		end
 
 		it "cannot return fixed bikes to the garage" do
