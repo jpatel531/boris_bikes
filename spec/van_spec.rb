@@ -1,6 +1,9 @@
 require 'van'
 require 'bike'
 
+class WrongContentsException < Exception ; end
+class NoBikesException < Exception ; end
+
 describe Van do
 
 	let(:station) {DockingStation.new}
@@ -25,7 +28,7 @@ describe Van do
 		end
 
 		it "raises an error if you try to deliver nothing" do
-			expect(lambda {van.return_bikes_to station}).to raise_error(RuntimeError)
+			expect(lambda {van.return_bikes_to station}).to raise_exception(NoBikesException)
 		end
 	end
 
@@ -48,12 +51,25 @@ describe Van do
 		end
 
 		it "cannot return fixed bikes to the garage" do
-			expect(lambda {van.return_bikes_to garage}).to raise_error(RuntimeError)
+			expect(lambda {van.return_bikes_to garage}).to raise_exception(WrongContentsException)
 		end
 
 		it "cannot return broken bikes to station" do
 			bike.break!
-			expect(lambda {van.return_bikes_to station}).to raise_error(RuntimeError)
+			expect(lambda {van.return_bikes_to station}).to raise_exception(WrongContentsException)
+		end
+
+		it "still has a bike after trying to unload on a full station" do 
+			15.times {station.dock Bike.new}
+			van.return_bikes_to station
+			expect(van.bikes).not_to be_empty
+		end
+
+		it "still has a bike after trying to unload on a garage" do
+			15.times {garage.dock Bike.new}
+			bike.break!
+			van.return_bikes_to garage
+			expect(van.bikes).not_to be_empty
 		end
 	end
 end

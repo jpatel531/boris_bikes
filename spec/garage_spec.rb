@@ -50,5 +50,17 @@ describe Garage do
 			garage.release_bikes_to(van)
 			expect(garage.bikes).to be_empty
 		end
+
+		it "has bikes after trying to release to a full van" do
+			15.times {van.dock Bike.new}
+			garage.release_bikes_to van
+			expect(van.bikes).not_to be_empty
+		end
+	end
+
+	context "if empty" do
+		it "cannot release anything to van" do
+			expect(lambda {garage.release_bikes_to van}).to raise_exception(EmptyException)
+		end
 	end
 end

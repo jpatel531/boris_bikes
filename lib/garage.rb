@@ -11,15 +11,16 @@ def repair_bikes
 end
 
 def release_bikes_to(van)
-	error_if(van)
+	raise EmptyException.new("Nothing to release bro") if bikes.empty?
+	begin
 	self.bikes.each {|bike| van.dock bike}
 	bikes.clear
-end
-
-def error_if(van)
-	if bikes.empty?
-			raise "Nothing to deliver!"
+	rescue FullException => e
+		e.message
+	rescue EmptyException => e
+		e.message
 	end
 end
+
 
 end

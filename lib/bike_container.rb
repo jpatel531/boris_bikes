@@ -20,12 +20,12 @@ module BikeContainer
 	end
 
 	def dock(bike)
-		raise FullException if full?
+		raise FullException.new("We're full bro") if full?
 		bikes << bike
 	end
 
 	def release(bike)
-		raise EmptyException if bike_count == 0
+		raise EmptyException.new("This is empty bro") if bike_count == 0
 		bikes.delete(bike)
 		bike
 	end
