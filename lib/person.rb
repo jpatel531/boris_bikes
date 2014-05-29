@@ -24,8 +24,12 @@ class Person
 	end
 
 	def return_bike_to(station)
+		begin
 		station.dock bike
 		@bike = nil
+		rescue FullException => e 
+			e.message
+		end
 	end
 
 end

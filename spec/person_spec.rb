@@ -44,10 +44,17 @@ describe Person do
 	end
 
 	context "after returning a bike" do
+		let(:person) {Person.new(:bike)}
+
 		it "has no bikes" do
-			person = Person.new(:bike)
 			person.return_bike_to(station)
 			expect(person).not_to have_bike
+		end
+
+		it "still has the bike when the station is full" do 
+			15.times {station.dock Bike.new}
+			person.return_bike_to station
+			expect(person).to have_bike
 		end
 	end
 end

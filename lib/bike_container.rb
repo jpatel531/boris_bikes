@@ -1,3 +1,6 @@
+class FullException < Exception ; end
+class EmptyException < Exception ; end
+
 module BikeContainer
 
 	DEFAULT_CAPACITY = 15
@@ -17,12 +20,12 @@ module BikeContainer
 	end
 
 	def dock(bike)
-		raise "Station is full" if full?
+		raise FullException if full?
 		bikes << bike
 	end
 
 	def release(bike)
-		raise "There are no bikes" if bike_count == 0
+		raise EmptyException if bike_count == 0
 		bikes.delete(bike)
 		bike
 	end
