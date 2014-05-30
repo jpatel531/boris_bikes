@@ -1,3 +1,5 @@
+class OnlyOneBro < Exception ; end
+
 class Person
 
 	attr_reader :bike
@@ -19,8 +21,13 @@ class Person
 	end
 
 	def rent_bike_from(station)
+		raise OnlyOneBro.new("Dude, you can only rent one") if has_bike?
+		begin
 		an_available_bike = station.available_bikes.first
 		@bike = station.rent_out an_available_bike
+		rescue OnlyOneBro => e
+			e.message
+		end 
 	end
 
 	def return_bike_to(station)

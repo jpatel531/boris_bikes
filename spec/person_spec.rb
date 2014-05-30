@@ -41,6 +41,12 @@ describe Person do
 			expect(station).to receive(:dock)
 			person.return_bike_to(station)
 		end
+
+		it "cannot rent another" do 
+			person = Person.new(:bike)
+			station.dock Bike.new
+			expect(lambda {person.rent_bike_from station}).to raise_exception(OnlyOneBro)
+		end
 	end
 
 	context "after returning a bike" do
