@@ -1,0 +1,1 @@
+['bike', 'bike_container', 'docking_station', 'garage', 'person', 'van'].each {|file| require_relative file}
